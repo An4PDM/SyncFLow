@@ -1,8 +1,8 @@
 #Conexão ao BD
-HOST = 'localhost'
-USER = 'root'
-PASSWORD = 'Sa161918!'
-DATABASE = 'vendas'
+HOST = 'insert_host'
+USER = 'insert_user'
+PASSWORD = 'insert_password'
+DATABASE = 'insert_database'
 
 # URL da API
-API_URL = 'http://127.0.0.1:5000/pedidos'
+API_URL = 'insert_your_api_url'
