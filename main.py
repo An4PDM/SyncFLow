@@ -2,7 +2,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.empty import EmptyOperator
 from datetime import datetime
-from config import HOST,USER,PASSWORD,DATABASE,API_URL
+from varejo.config import HOST,USER,PASSWORD,DATABASE,API_URL
 import mysql.connector
 import pandas as pd
 import requests
@@ -49,7 +49,6 @@ def extract_api (**kwargs):
     else:
         raise Exception (f'Erro ao acessar API: {response.status_code}')
     
-    
 
 
 # Transformação
@@ -61,7 +60,7 @@ def extract_api (**kwargs):
 
 
 with DAG (
-    dag_id='teste',
+    dag_id='Varejo',
     schedule_interval='@daily',
     start_date=datetime(2025,3,12),
     catchup=True
