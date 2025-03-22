@@ -18,29 +18,23 @@ def extract_bd (**kwargs):
 
     cursor = conn.cursor()
 
-    queries = {
-        'soma_estoque': 'SELECT * FROM soma_estoque;',
-        'infos_de_precos': 'SELECT * FROM infos_de_precos;',
-        'fornecedores':'SELECT * FROM fornecedor;' 
-    }
+    query = 'SELECT * FROM soma_estoque;'
+    cursor.execute(query)
 
-    dataframes = {} # Para armazenar todos os DFs
+    # Definindo colunas e linhas
+    columns = [desc[0] for desc in cursor.description] #Retorna a primeira linha (nome das colunas)
+    rows = cursor.fetchall()
 
-    for file_name, query in queries.items():
-        cursor.execute(query)
-        columns=[desc[0] for desc in cursor.description] # Retorna a primeira linha (nome das colunas)
-        rows = cursor.fetchall()
-
-        df = pd.DataFrame(rows, columns=columns)
-        df.to_csv(f'{file_name}.csv', index=False)
-
-        # Salvando no dicionario geral como serializável
-        dataframes[file_name] = df.to_json()
+    # Convertendo para dataframe e salvando temporariamente
+    df = pd.DataFrame(rows, columns=columns)
+    df.to_csv('soma_estoque.csv', index=False)
 
     cursor.close()
     conn.close()
 
-    kwargs['ti'].xcom_push(key='df', values=dataframes)
+    # Alterando para arquivo serializável
+    df_serial_db = df.to_json()
+    kwargs['ti'].xcom_push(key='df',value=df_serial_db)
 
 def extract_api (**kwargs):
     url = API_URL
@@ -78,7 +72,7 @@ def transform_data_from_db (**kwargs):
 
 with DAG (
     dag_id='Varejo',
-    schedule='@daily',
+    schedule_interval='@daily',
     start_date=datetime(2025,3,12),
     catchup=True
 ) as dag:
