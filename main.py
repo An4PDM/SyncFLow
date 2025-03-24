@@ -32,7 +32,7 @@ def extract_bd (**kwargs):
         rows = cursor.fetchall()
 
         df = pd.DataFrame(rows, columns=columns)
-        df.to_csv(f'{file_name}.csv', index=False)
+        df.to_csv(f'spreadsheets/{file_name}.csv', index=False)
 
         # Salvando no dicionario geral como serializável
         dataframes[file_name] = df.to_json()

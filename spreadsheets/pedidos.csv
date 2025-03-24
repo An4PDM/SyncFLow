@@ -1,0 +1,3 @@
+cliente,id,produtos,status
+Empresa A,1,"[{'id': 2, 'quantidade': 4}, {'id': 3, 'quantidade': 3}]",Pago
+Empresa B,2,"[{'id': 1, 'quantidade': 2}, {'id': 2, 'quantidade': 5}]",Pendente
