@@ -21,7 +21,8 @@ def extract_bd (**kwargs):
     queries = {
         'soma_estoque': 'SELECT * FROM soma_estoque;',
         'infos_de_precos': 'SELECT * FROM infos_de_precos;',
-        'fornecedores':'SELECT * FROM fornecedor;' 
+        'fornecedores':'SELECT * FROM fornecedor;',
+        'produtos': 'SELECT * FROM produto;'
     }
 
     dataframes = {} # Para armazenar todos os DFs
